@@ -5,27 +5,32 @@ class grunt::install{
     command => '/usr/bin/apt-get update',
   }
 
-  package { 'python-software-properties':
-    ensure => present,
-    require => Exec['apt-get update'],
+  if ! defined(Package['python-software-properties']) {
+    package { 'python-software-properties':
+      ensure => present,
+      require => Exec['apt-get update'],
+    }
   }
 
-  package { 'ruby1.9.3':
-    ensure => present,
-    require => Exec['apt-get update'],
+  if ! defined(Package['ruby1.9.3']) {
+    package { 'ruby1.9.3':
+      ensure => present,
+      require => Exec['apt-get update'],
+    }
   }
-
+  
   # Get node
   exec { 'add node repo':
     command => '/usr/bin/apt-add-repository ppa:chris-lea/node.js && /usr/bin/apt-get update',
     require => Package['python-software-properties'],
   }
 
-  package { 'nodejs': 
-    ensure => latest,
-    require => [Exec['apt-get update'], Exec['add node repo']],
+  if ! defined(Package['nodejs']) {
+    package { 'nodejs': 
+      ensure => latest,
+      require => [Exec['apt-get update'], Exec['add node repo']],
+    }
   }
-
 
   # install npm
   exec { 'npm':
