@@ -52,7 +52,7 @@ class grunt::install{
 
   # finally install grunt
   exec { 'npm install -g grunt-cli bower':,
-    command => '/usr/bin/npm install -g grunt-cli bower',
+    command => '/usr/bin/npm install -g grunt-cli bower@1.2.7',
     require => Exec['npm'],
   }
 
