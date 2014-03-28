@@ -34,7 +34,7 @@ class grunt::install{
 
   # install npm
   exec { 'npm':
-    command => '/usr/bin/curl --connect-timeout 120 --max-time 120 https://npmjs.org/install.sh | /bin/sh',
+    command => '/usr/bin/curl --connect-timeout 120 --max-time 120 https://www.npmjs.org/install.sh | /bin/sh',
     require => [Package['nodejs'], Package['curl']],
     environment => 'clean=yes',
   }
